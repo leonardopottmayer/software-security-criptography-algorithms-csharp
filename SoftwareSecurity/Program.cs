@@ -1,4 +1,5 @@
-﻿using SoftwareSecurity.Cryptography.VigenereCipher;
+﻿using SoftwareSecurity.Cryptography.CaesarCipher;
+using SoftwareSecurity.Cryptography.VigenereCipher;
 
 namespace SoftwareSecurity
 {
@@ -7,6 +8,7 @@ namespace SoftwareSecurity
         public static void Main()
         {
             TestVigenereCipher();
+            TestCaesarCipher();
         }
 
         public static void TestVigenereCipher()
@@ -18,6 +20,16 @@ namespace SoftwareSecurity
 
             string encryptResult = vigenereCipher.Encrypt(textToEncrypt, encryptionKey);
             string descryptResult = vigenereCipher.Decrypt(encryptResult, encryptionKey);
+        }
+
+        public static void TestCaesarCipher()
+        {
+            var caesarCipher = new CaesarCipher();
+
+            string textToEncrypt = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%¨&*()-_=+{[}]\\|;:'\",<.>/?";
+
+            string encryptResult = caesarCipher.Encrypt(textToEncrypt);
+            string decryptResult = caesarCipher.Decrypt(encryptResult);
         }
     }
 }

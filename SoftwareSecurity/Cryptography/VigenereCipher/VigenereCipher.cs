@@ -21,6 +21,13 @@ namespace SoftwareSecurity.Cryptography.VigenereCipher
 
         #region Encryption And Decryption Methods
 
+        /// <summary>
+        /// Encrypts the text using a specified key.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public string Encrypt(string text, string key)
         {
             if (!KeyIsValid(key)) throw new ArgumentException("Invalid key.");
@@ -47,6 +54,13 @@ namespace SoftwareSecurity.Cryptography.VigenereCipher
             return builder.ToString();
         }
 
+        /// <summary>
+        /// Decrypts the text using a specified key.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public string Decrypt(string text, string key)
         {
             if (!KeyIsValid(key)) throw new ArgumentException("Invalid key.");
