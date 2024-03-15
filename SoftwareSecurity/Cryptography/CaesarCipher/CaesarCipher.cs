@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+﻿using SoftwareSecurity.Cryptography.Utils;
 using System.Text;
 
 namespace SoftwareSecurity.Cryptography.CaesarCipher
@@ -7,8 +7,7 @@ namespace SoftwareSecurity.Cryptography.CaesarCipher
     {
         #region Attributes
 
-        protected List<char> LowerLetters = new List<char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-        protected List<char> UpperLetters = new List<char>() { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+        protected CharacterManipulator Manipulator = new CharacterManipulator();
 
         #endregion Attributes
 
@@ -80,11 +79,11 @@ namespace SoftwareSecurity.Cryptography.CaesarCipher
         protected char RotateLetter(char letter)
         {
             int defaultShift = 3;
-            bool isLetterUpper = char.IsUpper(letter);
-            int letterIndex = GetLetterIndex(letter, isLetterUpper);
+            bool isUpperLetter = char.IsUpper(letter);
+            int letterIndex = Manipulator.GetLetterIndex(letter, isUpperLetter);
             int newIndex = (letterIndex + defaultShift) % 26;
 
-            return isLetterUpper ? UpperLetters[newIndex] : LowerLetters[newIndex];
+            return Manipulator.GetLetterByIndex(newIndex, isUpperLetter);
         }
 
         #endregion Encryption Auxiliar Methods
@@ -99,49 +98,13 @@ namespace SoftwareSecurity.Cryptography.CaesarCipher
         protected char RotateLetterReverse(char letter)
         {
             int defaultShift = 3;
-            bool isLetterUpper = char.IsUpper(letter);
-            int letterIndex = GetLetterIndex(letter, isLetterUpper);
+            bool isUpperLetter = char.IsUpper(letter);
+            int letterIndex = Manipulator.GetLetterIndex(letter, isUpperLetter);
             int newIndex = (letterIndex - defaultShift + 26) % 26;
 
-            return isLetterUpper ? UpperLetters[newIndex] : LowerLetters[newIndex];
+            return Manipulator.GetLetterByIndex(newIndex, isUpperLetter);
         }
 
         #endregion Decryption Auxiliar Methods
-
-        #region General Auxiliar Methods
-
-        /// <summary>
-        /// Removes accents from the text.
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        protected string RemoveAccents(string input)
-        {
-            string normalizedString = input.Normalize(NormalizationForm.FormD);
-            StringBuilder stringBuilder = new StringBuilder();
-
-            foreach (char c in normalizedString)
-            {
-                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
-                {
-                    stringBuilder.Append(c);
-                }
-            }
-
-            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
-        }
-
-        /// <summary>
-        /// Gets the index of the letter in the list of letters.
-        /// </summary>
-        /// <param name="letter"></param>
-        /// <param name="isUpper"></param>
-        /// <returns></returns>
-        protected int GetLetterIndex(char letter, bool isUpper = false)
-        {
-            return isUpper ? UpperLetters.IndexOf(letter) : LowerLetters.IndexOf(letter);
-        }
-
-        #endregion General Auxiliar Methods
     }
 }
