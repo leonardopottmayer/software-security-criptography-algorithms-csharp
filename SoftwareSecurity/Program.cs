@@ -14,7 +14,7 @@ namespace SoftwareSecurity
             ExecuteCaesarCipher();
             ExecuteColumnarTranspositionCipher();
             ExecuteLinearTranspositionCipher();
-            ExecuteSimpleReplacing();
+            ExecuteSimpleReplacingCipher();
         }
 
         public static void ExecuteVigenereCipher()
@@ -109,7 +109,7 @@ namespace SoftwareSecurity
             Console.WriteLine();
         }
 
-        public static void ExecuteSimpleReplacing()
+        public static void ExecuteSimpleReplacingCipher()
         {
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine($"Executing {nameof(SimpleReplacingCipher)}");
