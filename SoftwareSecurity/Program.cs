@@ -1,6 +1,7 @@
 ﻿using SoftwareSecurity.Cryptography.CaesarCipher;
 using SoftwareSecurity.Cryptography.ColumnarTranspositionCipher;
 using SoftwareSecurity.Cryptography.LinearTranspositionCipher;
+using SoftwareSecurity.Cryptography.RailFenceCipher;
 using SoftwareSecurity.Cryptography.SimpleReplacingCipher;
 using SoftwareSecurity.Cryptography.VigenereCipher;
 
@@ -15,6 +16,7 @@ namespace SoftwareSecurity
             ExecuteColumnarTranspositionCipher();
             ExecuteLinearTranspositionCipher();
             ExecuteSimpleReplacingCipher();
+            ExecuteRailFenceCipher();
         }
 
         public static void ExecuteVigenereCipher()
@@ -165,6 +167,29 @@ namespace SoftwareSecurity
             //};
 
             string decryptResult = simpleReplacing.Decrypt(encryptResult, mapping);
+
+            Console.WriteLine($"Encrypted text: {encryptResult}");
+            Console.WriteLine($"Decrypted text: {decryptResult}");
+
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine();
+        }
+
+        public static void ExecuteRailFenceCipher()
+        {
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine($"Executing {nameof(RailFenceCipher)}");
+            Console.WriteLine("--------------------------------------------------");
+
+            var railFenceCipher = new RailFenceCipher();
+
+            int amountOfRails = 7;
+            string textToEncrypt = "VAMOS ATACAR O SUL AMANHA";
+
+            Console.WriteLine($"Text to be encrypted: {textToEncrypt}");
+
+            string encryptResult = railFenceCipher.Encrypt(textToEncrypt, amountOfRails);
+            string decryptResult = railFenceCipher.Decrypt(encryptResult, amountOfRails);
 
             Console.WriteLine($"Encrypted text: {encryptResult}");
             Console.WriteLine($"Decrypted text: {decryptResult}");
